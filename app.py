@@ -21,11 +21,85 @@ def checkIfNotBinaryNumber(stringOne, stringTwo):
 
 def lengthLongerThan(lenA, lenB, sA, sB):
     deviation = lenA - lenB
-    for i in range(0, deviation):
-        sB = '0' + sB
+    charSB = []
+    for i in sB:
+        charSB.append(i)
     
-    return sB
+    for i in range(0, deviation):
+        charSB.insert(0, '0')
+    
+    stringSB = ""
+    for i in charSB:
+        stringSB += i
+    
+    return stringSB
 
+def addBinaryStrings(stringOne, stringTwo):
+    sOneSTwo = []
+    temp = '0'
+    for i in range(len(stringOne)-1, -1, -1):
+        number = '0'
+        if stringOne[i] == '1' and stringTwo[i] == '1':
+            if temp == '1' and i == 0:
+                number = '1'
+                sOneSTwo.append(number)
+                number = '1'
+                temp = '0'
+            elif temp == '0' and i == 0:
+                number = '0'
+                sOneSTwo.append(number)
+                number = '1'
+                temp = '0'
+            elif temp == '1':
+                number = '1'
+                temp = '1'
+            elif temp == '0':
+                number = '0'
+                temp = '1'
+        elif stringOne[i] == '1' and stringTwo[i] == '0':
+            if temp == '1' and i == 0:
+                number = '0'
+                sOneSTwo.append(number)
+                number = '1'
+                temp = '0'
+            elif temp == '0' and i == 0:
+                number = '1'
+                temp = '0'
+            elif temp == '1':
+                number = '0'
+                temp = '1'
+            elif temp == '0':
+                number = '1'
+                temp = '0'
+        elif stringOne[i] == '0' and stringTwo[i] == '1':
+            if temp == '1' and i == 0:
+                number = '0'
+                sOneSTwo.append(number)
+                number = '1'
+                temp = '0'
+            elif temp == '0' and i == 0:
+                number = '1'
+                temp = '0'
+            elif temp == '1':
+                number = '0'
+                temp = '1'
+            else:
+                number = '1'
+                temp = '0'
+        elif stringOne[i] == '0' and stringTwo[i] == '0':
+            if temp == '1':
+                number = '1'
+                temp = '0'
+            elif temp == '0':
+                number = '0'
+                temp = '0'
+        sOneSTwo.append(number)
+
+    if sOneSTwo[len(sOneSTwo)-1] == '0':
+        sOneSTwo.pop(len(sOneSTwo)-1)
+        if sOneSTwo[len(sOneSTwo)-1] == '0':
+            sOneSTwo.pop(len(sOneSTwo)-1)
+    return sOneSTwo
 
 def addBinaryNumbers(stringOne, stringTwo):
     # take the length
@@ -46,47 +120,18 @@ def addBinaryNumbers(stringOne, stringTwo):
     if sTwoLength > sOneLength:
         stringOne = lengthLongerThan(sTwoLength, sOneLength, stringTwo, stringOne)
     # add binary numbers.
-    sOneSTwo = ""
-    temp = '0'
-    for i in range(sOneLength, -1):
-        number = '0'
-        if stringOne[i] == '1' and stringTwo[i] == '1':
-            if temp == '1' and i == 0:
-                number = '1'
-                sOneSTwo += number
-                number = '1'
-                temp = '0'
-            elif temp == '0' and i == 0:
-                number = '0'
-                sOneSTwo += number
-                number = "1"
-                temp = "0"
-            elif temp == '1':
-                number = '1'
-                temp = '1'
-            elif temp == '0':
-                number = '0'
-                temp = '1'
-        elif stringOne == '1' and stringTwo[i] == '0':
-            if temp == '1' and i == 0:
-                number = '0'
-                sOneSTwo += number
-                number = '1'
-                temp = '0'
-            elif temp == '0' and i == 0:
-                number = '1'
-                temp = '0'
-            elif temp == '1':
-                number = '0'
-                temp = '1'
-            elif temp == '0':
-                number = '1'
-                temp = '0'
-                
-    return {
-        'stringOne' : stringOne,
-        'stringTwo' : stringTwo
-    }
+    reservedResult = addBinaryStrings(stringOne, stringTwo)
+    ## reverse back to normal
+    result = ""
+    for i in range(len(reservedResult)-1, -1, -1):
+        result = result + reservedResult[i]
+
+    # return {
+    #     'stringOne' : stringOne,
+    #     'stringTwo' : stringTwo
+    # }
+
+    return result
 
 print('Masukkan dua string binary number: ')
 stringOne = input()
