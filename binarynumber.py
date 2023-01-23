@@ -171,7 +171,7 @@ def convertBinaryToDecimal(binaryNum):
 
 
 # convert decimal number to binary number
-print("masukkan")
-sOne = input()
+# print("masukkan")
+# sOne = input()
 # sTwo = input()
-print(convertBinaryToDecimal(sOne))
+# print(convertBinaryToDecimal(sOne))
