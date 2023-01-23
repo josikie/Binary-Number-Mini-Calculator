@@ -21,23 +21,11 @@ class TestApp(unittest.TestCase):
         data = json.loads(req.data)
 
         self.assertEqual(data['status_code'], 200)
-        self.assertEqual(data['success'], True)
-        self.assertEqual(data['result'], '10001')
+        self.assertTrue(data['success'])
+        self.assertEqual(data['result'], "10001")
 
 
     def test_400_binary_number_addition(self):
-        headers = {
-            'Content-Type':'application/json'
-        }
-        req = self.client().post('/binary-number-addition', headers=headers, json={"numOne":"0000000000000000001111111000000000001111", "numTwo":"1110"})
-        data = json.loads(req.data)
-
-        self.assertEqual(data['status_code'], 400)
-        self.assertEqual(data['message'], 'bad request')
-        self.assertEqual(data['success'], False)
-
-
-    def test_400_not_binary_number(self):
         headers = {
             'Content-Type': 'application/json'
         }
@@ -48,6 +36,43 @@ class TestApp(unittest.TestCase):
         self.assertEqual(data['message'], 'bad request')
         self.assertEqual(data['success'], False)
 
+    def test_400_binary_number_addition(self):
+        headers = {
+            'Content-Type': 'application/json'
+        }
+        req = self.client().post('/binary-number-addition', headers=headers, json={"numOne":"1110011000000000000000000000000011111000100", "numTwo":"1110"})
+        data = json.loads(req.data)
+
+        self.assertEqual(data['status_code'], 400)
+        self.assertEqual(data['message'], 'bad request')
+        self.assertEqual(data['success'], False)
+
+
+    # test for binary number substraction
+    def test_binary_number_substraction(self):
+        headers = {
+            'Content-Type':'application/json'
+        }
+
+        req = self.Client().post('/binary-number-substraction', headers=headers, json={"numOne":"0011", "numTwo":"1110"})
+        data = json.loads(req.data)
+
+        self.assertTrue(data['success'])
+        self.assertEqual(data['status_code'], 200)
+        self.assertEqual(data['result'], "")
+
+    
+    def tet_404_binary_number_substraction(self):
+        headers = {
+            'Content-Type': 'application/json'
+        }
+
+        req = self.client().post('/binary-number-addition', headers=headers, json={"numOne":"111200", "numTwo":"1110"})
+        data = json.loads(req.data)
+
+        self.assertEqual(data['status_code'], 400)
+        self.assertEqual(data['message'], 'bad request')
+        self.assertEqual(data['success'], False)
 
 
 if __name__ == "__main__":

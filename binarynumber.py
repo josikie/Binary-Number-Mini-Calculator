@@ -29,7 +29,7 @@ def lengthLongerThan(lenA, lenB, sA, sB):
     return stringSB
 
 
-def processBinary(stringOne, stringTwo):
+def processBinaryAddition(stringOne, stringTwo):
     sOneSTwo = []
     temp = '0'
     for i in range(len(stringOne)-1, -1, -1):
@@ -102,26 +102,20 @@ def addBinaryNumbers(stringOne, stringTwo):
     sOneLength = len(stringOne)
     sTwoLength = len(stringTwo)
     result = ""
-    # check if the digits only 0 and 1.
-    if checkIfNotBinaryNumber(stringOne, stringTwo):
-        # # abort(400)
-        return "Please add only binary digits"
-    # check if the digits less than 18
-    elif sOneLength > 255 or sTwoLength > 255:
-        return "Please only add binary digits with length less than 255"
     
-    else:
-        # add 0 in front of string One, if stringTwo's size greater than stringOne.
-        if sOneLength > sTwoLength:
-            stringTwo = lengthLongerThan(sOneLength, sTwoLength, stringOne, stringTwo)
-        # add 0 in front of string Two, if stringOne's size greater than stringTwo.
-        if sTwoLength > sOneLength:
-            stringOne = lengthLongerThan(sTwoLength, sOneLength, stringTwo, stringOne)
-        # add binary numbers.
-        reservedResult = processBinary(stringOne, stringTwo)
-        ## reverse back to normal
-        for i in range(len(reservedResult)-1, -1, -1):
-            result = result + reservedResult[i]
+    # add 0 in front of string One, if stringTwo's size greater than stringOne.
+    if sOneLength > sTwoLength:
+        stringTwo = lengthLongerThan(sOneLength, sTwoLength, stringOne, stringTwo)
+
+    # add 0 in front of string Two, if stringOne's size greater than stringTwo.
+    if sTwoLength > sOneLength:
+        stringOne = lengthLongerThan(sTwoLength, sOneLength, stringTwo, stringOne)
+
+    # add binary numbers.
+    reservedResult = processBinaryAddition(stringOne, stringTwo)
+    ## reverse back to normal
+    for i in range(len(reservedResult)-1, -1, -1):
+        result = result + reservedResult[i]
 
     # return {
     #     'stringOne' : stringOne,
@@ -130,7 +124,54 @@ def addBinaryNumbers(stringOne, stringTwo):
 
     return result
 
-# print("masukkan")
-# sOne = input()
+
+def processBinarySubstraction(stringOne, stringTwo):
+    lenOne = len(stringOne)
+    lenTwo = len(stringTwo)
+    
+
+def substractBinaryNumber(stringOne, stringTwo):
+    # take the length
+    lenOne = len(stringOne)
+    lenTwo = len(stringTwo)
+    result = ""
+
+    # add 0 in front of string one if stringOne's size greater than stringTwo.
+    if lenOne > lenTwo:
+        stringTwo = lengthLongerThan(lenOne, lenTwo, stringOne, stringTwo)
+    # add 0 in front of string Two, if stringOne's size greater than stringTwo.
+    if lenTwo > lenTwo:
+        stringOne = lengthLongerThan(lenTwo, lenOne, stringTwo, stringOne)
+
+    #substract binary numbers
+    reservedResult = processBinarySubstraction(stringOne, stringTwo)
+
+
+# convert binary number to decimal number
+def convertBinaryToDecimal(binaryNum):
+    result = 0
+    baseNum = 2
+    listBinaryNum = []
+    for i in binaryNum:
+        listBinaryNum.append(int(i))
+        
+    listLength = len(listBinaryNum)
+    listReverseDecimalNum = []
+    for i in range(listLength-1, -1, -1):
+        listReverseDecimalNum.append(listBinaryNum[i])
+    total = 0
+    for i in range(0, len(listReverseDecimalNum)):
+        result = 0
+        if listReverseDecimalNum[i] == 0:
+            result = pow(baseNum, i) * 0
+        else:
+            result = pow(baseNum, i) * 1
+        total = total + result
+    return total
+
+
+# convert decimal number to binary number
+print("masukkan")
+sOne = input()
 # sTwo = input()
-# print(addBinaryNumbers(sOne, sTwo))
+print(convertBinaryToDecimal(sOne))

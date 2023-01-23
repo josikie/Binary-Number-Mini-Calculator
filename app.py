@@ -11,7 +11,7 @@ def binaryNumberAddition():
     stringOne = stringNumber.get('numOne')
     stringTwo = stringNumber.get('numTwo')
 
-    if len(stringOne) > 8 or len(stringTwo) > 8:
+    if stringOne > 20 or stringTwo > 20:
         abort(400)
     
     if checkIfNotBinaryNumber(stringOne, stringTwo):
@@ -24,6 +24,22 @@ def binaryNumberAddition():
         'success' : True,
         'result' : result
     })
+
+
+@app.route('/binary-number-substraction', methods=['POST']):
+def binaryNumberSubstraction():
+    stringNumber = request.get_json()
+    stringOne = stringNumber.get('numOne')
+    stringTwo = stringNumber.get('numTwo')
+
+    if stringOne > 20 or stringTwo > 20:
+        abort(400)
+
+    if checkIfNotBinaryNumber(stringOne, stringTwo):
+        abort(400)
+
+    result = 
+
 
 @app.errorhandler(400)
 def bad_request(error):
