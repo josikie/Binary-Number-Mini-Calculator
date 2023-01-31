@@ -169,9 +169,26 @@ def convertBinaryToDecimal(binaryNum):
         total = total + result
     return total
 
-
 # convert decimal number to binary number
-# print("masukkan")
-# sOne = input()
-# sTwo = input()
-# print(convertBinaryToDecimal(sOne))
+def convertDecimalToBinary(decimalNum):
+    minus = False
+    decimalNumber = int(decimalNum)
+    if decimalNumber < 0:
+        minus = True
+    arrBinary = []
+    while decimalNumber != 0:
+        arrBinary.insert(0,decimalNumber % 2)
+        decimalNumber = int(decimalNumber / 2)
+    
+    stringArrBinary = ""
+    for i in arrBinary:
+        stringArrBinary += str(i)
+    
+    if minus:
+        stringArrBinary = "-" + stringArrBinary
+    return stringArrBinary
+
+
+print("masukkan")
+sOne = input()
+print(convertDecimalToBinary(sOne))
