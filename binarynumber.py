@@ -149,6 +149,17 @@ def substractBinaryNumber(stringOne, stringTwo):
 
 # convert binary number to decimal number
 def convertBinaryToDecimal(binaryNum):
+    minus = False
+    charBinaryNum = []
+    if binaryNum[0] == "-":
+        minus = True
+        for i in binaryNum:
+            if i != "-":
+                charBinaryNum.append(i)
+        binaryNum = ""
+        for i in charBinaryNum:
+            binaryNum += i
+        
     result = 0
     baseNum = 2
     listBinaryNum = []
@@ -167,6 +178,9 @@ def convertBinaryToDecimal(binaryNum):
         else:
             result = pow(baseNum, i) * 1
         total = total + result
+    
+    if minus:
+        total = total * -1
     return total
 
 # convert decimal number to binary number
@@ -191,4 +205,4 @@ def convertDecimalToBinary(decimalNum):
 
 print("masukkan")
 sOne = input()
-print(convertDecimalToBinary(sOne))
+print(convertBinaryToDecimal(sOne))
