@@ -30,71 +30,79 @@ def lengthLongerThan(lenA, lenB, sA, sB):
 
 
 def processBinaryAddition(stringOne, stringTwo):
-    sOneSTwo = []
-    temp = '0'
-    for i in range(len(stringOne)-1, -1, -1):
-        number = '0'
-        if stringOne[i] == '1' and stringTwo[i] == '1':
-            if temp == '1' and i == 0:
-                number = '1'
-                sOneSTwo.append(number)
-                number = '1'
-                temp = '0'
-            elif temp == '0' and i == 0:
-                number = '0'
-                sOneSTwo.append(number)
-                number = '1'
-                temp = '0'
-            elif temp == '1':
-                number = '1'
-                temp = '1'
-            elif temp == '0':
-                number = '0'
-                temp = '1'
-        elif stringOne[i] == '1' and stringTwo[i] == '0':
-            if temp == '1' and i == 0:
-                number = '0'
-                sOneSTwo.append(number)
-                number = '1'
-                temp = '0'
-            elif temp == '0' and i == 0:
-                number = '1'
-                temp = '0'
-            elif temp == '1':
-                number = '0'
-                temp = '1'
-            elif temp == '0':
-                number = '1'
-                temp = '0'
-        elif stringOne[i] == '0' and stringTwo[i] == '1':
-            if temp == '1' and i == 0:
-                number = '0'
-                sOneSTwo.append(number)
-                number = '1'
-                temp = '0'
-            elif temp == '0' and i == 0:
-                number = '1'
-                temp = '0'
-            elif temp == '1':
-                number = '0'
-                temp = '1'
-            else:
-                number = '1'
-                temp = '0'
-        elif stringOne[i] == '0' and stringTwo[i] == '0':
-            if temp == '1':
-                number = '1'
-                temp = '0'
-            elif temp == '0':
-                number = '0'
-                temp = '0'
-        sOneSTwo.append(number)
+    # convert string binary to decimal
+    decimalOne = convertBinaryToDecimal(stringOne)
+    decimalTwo = convertBinaryToDecimal(stringTwo)
+    # add the decimal binary
+    addedDecimal = decimalOne + decimalTwo
+    # convert the result to binary 
+    return convertDecimalToBinary(addedDecimal)
+    
+    # sOneSTwo = []
+    # temp = '0'
+    # for i in range(len(stringOne)-1, -1, -1):
+    #     number = '0'
+    #     if stringOne[i] == '1' and stringTwo[i] == '1':
+    #         if temp == '1' and i == 0:
+    #             number = '1'
+    #             sOneSTwo.append(number)
+    #             number = '1'
+    #             temp = '0'
+    #         elif temp == '0' and i == 0:
+    #             number = '0'
+    #             sOneSTwo.append(number)
+    #             number = '1'
+    #             temp = '0'
+    #         elif temp == '1':
+    #             number = '1'
+    #             temp = '1'
+    #         elif temp == '0':
+    #             number = '0'
+    #             temp = '1'
+    #     elif stringOne[i] == '1' and stringTwo[i] == '0':
+    #         if temp == '1' and i == 0:
+    #             number = '0'
+    #             sOneSTwo.append(number)
+    #             number = '1'
+    #             temp = '0'
+    #         elif temp == '0' and i == 0:
+    #             number = '1'
+    #             temp = '0'
+    #         elif temp == '1':
+    #             number = '0'
+    #             temp = '1'
+    #         elif temp == '0':
+    #             number = '1'
+    #             temp = '0'
+    #     elif stringOne[i] == '0' and stringTwo[i] == '1':
+    #         if temp == '1' and i == 0:
+    #             number = '0'
+    #             sOneSTwo.append(number)
+    #             number = '1'
+    #             temp = '0'
+    #         elif temp == '0' and i == 0:
+    #             number = '1'
+    #             temp = '0'
+    #         elif temp == '1':
+    #             number = '0'
+    #             temp = '1'
+    #         else:
+    #             number = '1'
+    #             temp = '0'
+    #     elif stringOne[i] == '0' and stringTwo[i] == '0':
+    #         if temp == '1':
+    #             number = '1'
+    #             temp = '0'
+    #         elif temp == '0':
+    #             number = '0'
+    #             temp = '0'
+    #     sOneSTwo.append(number)
 
-    if sOneSTwo[len(sOneSTwo)-1] == '0':
-        sOneSTwo.pop(len(sOneSTwo)-1)
-        if sOneSTwo[len(sOneSTwo)-1] == '0':
-            sOneSTwo.pop(len(sOneSTwo)-1)
-    return sOneSTwo
+    # if sOneSTwo[len(sOneSTwo)-1] == '0':
+    #     sOneSTwo.pop(len(sOneSTwo)-1)
+    #     if sOneSTwo[len(sOneSTwo)-1] == '0':
+    #         sOneSTwo.pop(len(sOneSTwo)-1)
+    # return sOneSTwo
 
 
 def addBinaryNumbers(stringOne, stringTwo):
@@ -205,4 +213,5 @@ def convertDecimalToBinary(decimalNum):
 
 print("masukkan")
 sOne = input()
-print(convertBinaryToDecimal(sOne))
+sTwo = input()
+print(processBinaryAddition(sOne, sTwo))
