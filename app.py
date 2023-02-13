@@ -26,7 +26,7 @@ def binaryNumberAddition():
     })
 
 
-@app.route('/binary-number-substraction', methods=['POST']):
+@app.route('/binary-number-substraction', methods=['POST'])
 def binaryNumberSubstraction():
     stringNumber = request.get_json()
     stringOne = stringNumber.get('numOne')
