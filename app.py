@@ -1,5 +1,10 @@
 from flask import Flask, abort, request, jsonify
-from binarynumber import addBinaryNumbers, checkIfNotBinaryNumber
+from binarynumber import (
+    processBinaryAddition, 
+    checkIfNotBinaryNumber, 
+    processBinarySubstraction, 
+    processBinaryMultiplication, 
+    processBinaryDivision)
 
 
 app = Flask(__name__)
@@ -11,13 +16,13 @@ def binaryNumberAddition():
     stringOne = stringNumber.get('numOne')
     stringTwo = stringNumber.get('numTwo')
 
-    if stringOne > 20 or stringTwo > 20:
+    if len(stringOne) > 255 or len(stringTwo) > 255:
         abort(400)
     
     if checkIfNotBinaryNumber(stringOne, stringTwo):
         abort(400)
     
-    result = addBinaryNumbers(stringOne, stringTwo)
+    result = processBinaryAddition(stringOne, stringTwo)
 
     return jsonify({
         'status_code' : 200,
@@ -32,13 +37,19 @@ def binaryNumberSubstraction():
     stringOne = stringNumber.get('numOne')
     stringTwo = stringNumber.get('numTwo')
 
-    if stringOne > 20 or stringTwo > 20:
+    if len(stringOne) > 255 or len(stringTwo) > 255:
         abort(400)
 
     if checkIfNotBinaryNumber(stringOne, stringTwo):
         abort(400)
 
-    result = 
+    result = processBinarySubstraction(stringOne, stringTwo)
+
+    return jsonify({
+        'status_code': 200,
+        'success': True,
+        'result': result
+    })
 
 
 @app.errorhandler(400)

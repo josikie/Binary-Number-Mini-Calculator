@@ -38,7 +38,6 @@ def processBinaryDivision(stringOne, stringTwo):
     return [convertDecimalToBinary(dividedDecimal), convertDecimalToBinary(reminderOfDividedDecimal)]
 
 
-# convert binary number to decimal number
 def convertBinaryToDecimal(binaryNum):
     minus = False
     charBinaryNum = []
@@ -75,14 +74,11 @@ def convertBinaryToDecimal(binaryNum):
     return total
 
 
-# convert decimal number to binary number
 def convertDecimalToBinary(decimalNum):
     minus = False
     decimalNumber = int(decimalNum)
     if decimalNumber < 0:
         minus = True
-    if decimalNumber < 1:
-        decimalNumber = 0
     arrBinary = []
     while decimalNumber != 0:
         arrBinary.insert(0,decimalNumber % 2)
@@ -91,16 +87,30 @@ def convertDecimalToBinary(decimalNum):
     stringArrBinary = ""
     for i in arrBinary:
         stringArrBinary += str(i)
-
-    if decimalNumber == 0:
-        stringArrBinary += '0'
     
+    if stringArrBinary == "":
+        stringArrBinary += "0"
+
     if minus:
         stringArrBinary = "-" + stringArrBinary
     return stringArrBinary
 
 
+def checkIfNotBinaryNumber(stringOne, stringTwo):
+    notBinaryNumber = False
+    for i in stringOne:
+        if i != '1':
+            if i != '0':
+                notBinaryNumber = True
+
+    for j in stringTwo:
+        if j != '1':
+            if j != '0':
+                notBinaryNumber = True
+
+    return notBinaryNumber
+
+
 # print("masukkan")
 # sOne = input()
-# sTwo = input()
-# print(processBinaryDivision(sOne, sTwo))
+# print(convertDecimalToBinary(sOne))
