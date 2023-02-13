@@ -12,17 +12,17 @@ app = Flask(__name__)
 
 @app.route('/binary-number-addition', methods=['POST'])
 def binaryNumberAddition():
-    stringNumber = request.get_json()
-    stringOne = stringNumber.get('numOne')
-    stringTwo = stringNumber.get('numTwo')
+    binaryNumber = request.get_json()
+    binaryOne = binaryNumber.get('numOne')
+    binaryTwo = binaryNumber.get('numTwo')
 
-    if len(stringOne) > 255 or len(stringTwo) > 255:
+    if len(binaryOne) > 255 or len(binaryTwo) > 255:
         abort(400)
     
-    if checkIfNotBinaryNumber(stringOne, stringTwo):
+    if checkIfNotBinaryNumber(binaryOne, binaryTwo):
         abort(400)
     
-    result = processBinaryAddition(stringOne, stringTwo)
+    result = processBinaryAddition(binaryOne, binaryTwo)
 
     return jsonify({
         'status_code' : 200,
@@ -33,22 +33,67 @@ def binaryNumberAddition():
 
 @app.route('/binary-number-substraction', methods=['POST'])
 def binaryNumberSubstraction():
-    stringNumber = request.get_json()
-    stringOne = stringNumber.get('numOne')
-    stringTwo = stringNumber.get('numTwo')
+    binaryNumber = request.get_json()
+    binaryOne = binaryNumber.get('numOne')
+    binaryTwo = binaryNumber.get('numTwo')
 
-    if len(stringOne) > 255 or len(stringTwo) > 255:
+    if len(binaryOne) > 255 or len(binaryTwo) > 255:
         abort(400)
 
-    if checkIfNotBinaryNumber(stringOne, stringTwo):
+    if checkIfNotBinaryNumber(binaryOne, binaryTwo):
         abort(400)
 
-    result = processBinarySubstraction(stringOne, stringTwo)
+    result = processBinarySubstraction(binaryOne, binaryTwo)
 
     return jsonify({
         'status_code': 200,
         'success': True,
         'result': result
+    })
+
+
+@app.route('/binary-number-multiplication', methods=['POST'])
+def binaryNumberMultiplication():
+    binaryNumber = request.get_json()
+    binaryOne = binaryNumber.get("numOne")
+    binaryTwo = binaryNumber.get("numTwo")
+
+    if len(binaryOne) > 255 or len(binaryTwo) > 255:
+        abort(400)
+
+    if checkIfNotBinaryNumber(binaryOne, binaryTwo):
+        abort(400)
+
+    result = processBinaryMultiplication(binaryOne, binaryTwo)
+
+    return jsonify({
+        'status_code': 200,
+        'success': True,
+        'result': result
+    })
+
+
+@app.route('/binary-number-division', methods=['POST'])
+def binaryNumberDivision():
+    binaryNumber = request.get_json()
+    binaryOne = binaryNumber.get("numOne")
+    binaryTwo = binaryNumber.get("numTwo")
+
+    if len(binaryOne) > 255 or len(binaryTwo) > 255:
+        abort(400)
+
+    if checkIfNotBinaryNumber(binaryOne, binaryTwo):
+        abort(400)
+    
+    result = processBinaryDivision(binaryOne, binaryTwo)
+
+    return jsonify({
+        'status_code': 200,
+        'success': True,
+        'result': {
+            'the_result_of_division': result[0],
+            'remainder': result[1]
+        }
     })
 
 
