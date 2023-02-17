@@ -1,11 +1,27 @@
 import unittest
 from app import app
 import json
+import os
+from urllib import request
+from flask_sqlalchemy import SQLAlchemy
+
+from app import create_app
+from models import setDB, BinaryAddition, BinaryDivision, BinaryMultiplication, BinarySubstraction
+from dotenv import load_dotenv
+from app import create_app
+
+DB_PATH = os.environ.get("DB_TEST_PATH")
 
 class TestApp(unittest.TestCase):
     def setUp(self):
-        self.app = app
+        self.app = create_app()
         self.client = self.app.test_client
+        self.database_path = DB_PATH
+
+        with self.app.app_context():
+            setDB(self.app, self.database_path)
+            self.db = SQLAlchemy()
+            self.db.init_app(self.app)
 
 
     def tearDown(self):
