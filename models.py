@@ -22,6 +22,15 @@ def setDB(app, database_path=database_path):
         migrate = Migrate(app, db)
 
 
+def setTestDB(app, database_path=database_path):
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_path
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    db.app = app
+    with db.app.app_context():
+        db.init_app(app)
+        #db.create_all()
+
+
 class BinaryAddition(db.Model):
     __tablename__ = 'binary_addition'
     

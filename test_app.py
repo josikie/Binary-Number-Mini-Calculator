@@ -6,7 +6,7 @@ from urllib import request
 from flask_sqlalchemy import SQLAlchemy
 
 from app import create_app
-from models import setDB, BinaryAddition, BinaryDivision, BinaryMultiplication, BinarySubstraction
+from models import setDB, BinaryAddition, BinaryDivision, BinaryMultiplication, BinarySubstraction, setTestDB
 from dotenv import load_dotenv
 from app import create_app
 
@@ -19,7 +19,7 @@ class TestApp(unittest.TestCase):
         self.database_path = DB_PATH
 
         with self.app.app_context():
-            setDB(self.app, self.database_path)
+            setTestDB(self.app, self.database_path)
             self.db = SQLAlchemy()
             self.db.init_app(self.app)
 

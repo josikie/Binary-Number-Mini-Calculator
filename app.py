@@ -28,6 +28,9 @@ def create_app(test_config=None):
         
         result = processBinaryAddition(binaryOne, binaryTwo)
 
+        binaryAddition = BinaryAddition(binaryOne, binaryTwo, result)
+        binaryAddition.insert()
+
         return jsonify({
             'status_code' : 200,
             'success' : True,
