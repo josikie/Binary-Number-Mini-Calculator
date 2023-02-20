@@ -86,6 +86,9 @@ def create_app(test_config=None):
         binaryOne = binaryNumber.get("numOne")
         binaryTwo = binaryNumber.get("numTwo")
 
+        ## task: use filter_by, to check if there are numbers equal to binaryOne and binaryTwo.
+        ## If none, it is okay to save it to db, otherwise just calculate it.
+
         if len(binaryOne) > 255 or len(binaryTwo) > 255:
             abort(400)
 
