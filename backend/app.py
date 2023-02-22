@@ -64,6 +64,8 @@ def create_app(test_config=None):
             abort(400)
 
         result = processBinarySubstraction(binaryOne, binaryTwo)
+        binarySubstraction = BinarySubstraction(binaryOne, binaryTwo, result)
+        binarySubstraction.insert()
 
         return jsonify({
             'status_code': 200,
@@ -87,6 +89,7 @@ def create_app(test_config=None):
             abort(400)
 
         result = processBinaryMultiplication(binaryOne, binaryTwo)
+        binaryMultiplication = BinaryMultiplication(binaryOne, binaryTwo, result)
 
         return jsonify({
             'status_code': 200,
