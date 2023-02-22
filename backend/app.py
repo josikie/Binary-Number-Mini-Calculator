@@ -78,6 +78,8 @@ def create_app(test_config=None):
         binaryOne = binaryNumber.get("numOne")
         binaryTwo = binaryNumber.get("numTwo")
 
+        checkNumbers(binaryOne, binaryTwo, BinaryMultiplication)
+
         if len(binaryOne) > 255 or len(binaryTwo) > 255:
             abort(400)
 
