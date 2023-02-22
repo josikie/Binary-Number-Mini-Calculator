@@ -33,12 +33,12 @@ class TestApp(unittest.TestCase):
         headers = {
             'Content-Type':'application/json'
         }
-        req = self.client().post('/binary-number-addition', headers=headers, json={"numOne":"0011", "numTwo":"1110"})
+        req = self.client().post('/binary-number-addition', headers=headers, json={"numOne":"1011", "numTwo":"1110"})
         data = json.loads(req.data)
 
         self.assertEqual(data['status_code'], 200)
         self.assertTrue(data['success'])
-        self.assertEqual(data['result'], "10001")
+        self.assertEqual(data['result'], "11001")
 
 
     def test_400_binary_number_addition(self):
