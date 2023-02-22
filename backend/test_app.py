@@ -33,12 +33,12 @@ class TestApp(unittest.TestCase):
         headers = {
             'Content-Type':'application/json'
         }
-        req = self.client().post('/binary-number-addition', headers=headers, json={"numOne":"1011", "numTwo":"1110"})
+        req = self.client().post('/binary-number-addition', headers=headers, json={"numOne":"10100", "numTwo":"1110"})
         data = json.loads(req.data)
 
         self.assertEqual(data['status_code'], 200)
         self.assertTrue(data['success'])
-        self.assertEqual(data['result'], "11001")
+        self.assertEqual(data['result'], "100010")
 
 
     def test_400_binary_number_addition(self):
@@ -114,6 +114,19 @@ class TestApp(unittest.TestCase):
         self.assertEqual(data['status_code'], 400)
         self.assertEqual(data['message'], 'bad request')
         self.assertEqual(data['success'], False)
+
+    
+    def test_400_3_binary_number_substraction(self):
+        headers = {
+            'Content-Type':'application/json'
+        }
+
+        req = self.client().post('/binary-number-substraction', headers=headers, json={"numOne":"0011", "numTwo":"1110"})
+        data = json.loads(req.data)
+
+        self.assertTrue(data['success'])
+        self.assertEqual(data['status_code'], 200)
+        self.assertEqual(data['result'], "-1011")
 
 
     # test for binary number multiplication

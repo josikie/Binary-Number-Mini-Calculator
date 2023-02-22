@@ -14,11 +14,11 @@ def create_app(test_config=None):
     setDB(app)
     CORS(app)
 
-    def checkNumbers(binaryOne, binaryTwo):
+    def checkNumbers(binaryOne, binaryTwo, binaryCalculator):
         ## task: use filter_by, to check if there are numbers equal to binaryOne and binaryTwo.
         ## If none, it is okay to save it to db, otherwise just calculate it.
 
-        binaryFromDb = BinaryAddition.query.filter_by(first_binary_number=binaryOne, second_binary_number=binaryTwo).one_or_none()
+        binaryFromDb = binaryCalculator.query.filter_by(first_binary_number=binaryOne, second_binary_number=binaryTwo).one_or_none()
 
         if binaryFromDb != None:
             abort(400)
@@ -29,7 +29,7 @@ def create_app(test_config=None):
         binaryOne = binaryNumber.get('numOne')
         binaryTwo = binaryNumber.get('numTwo')
 
-        checkNumbers(binaryOne, binaryTwo)
+        checkNumbers(binaryOne, binaryTwo, BinaryAddition)
 
         if len(binaryOne) > 255 or len(binaryTwo) > 255:
             abort(400)
@@ -54,6 +54,8 @@ def create_app(test_config=None):
         binaryNumber = request.get_json()
         binaryOne = binaryNumber.get('numOne')
         binaryTwo = binaryNumber.get('numTwo')
+
+        checkNumbers(binaryOne, binaryTwo, BinarySubstraction)
         
         if len(binaryOne) > 255 or len(binaryTwo) > 255:
             abort(400)
