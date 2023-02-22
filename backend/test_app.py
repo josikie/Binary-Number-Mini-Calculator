@@ -65,6 +65,18 @@ class TestApp(unittest.TestCase):
         self.assertEqual(data['success'], False)
 
 
+    def test_400_3_binary_number_addition(self):
+        headers = {
+            'Content-Type': 'application/json'
+        }
+        req = self.client().post('/binary-number-addition', headers=headers, json={"numOne":"111200", "numTwo":"1110"})
+        data = json.loads(req.data)
+
+        self.assertEqual(data['status_code'], 400)
+        self.assertEqual(data['message'], 'bad request')
+        self.assertEqual(data['success'], False)
+
+
     # test for binary number substraction
     def test_binary_number_substraction(self):
         headers = {
