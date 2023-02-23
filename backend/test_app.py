@@ -76,7 +76,6 @@ class TestApp(unittest.TestCase):
         self.assertEqual(data['message'], 'bad request')
         self.assertEqual(data['success'], False)
 
-
     # test for binary number substraction
     def test_binary_number_substraction(self):
         headers = {
@@ -86,11 +85,11 @@ class TestApp(unittest.TestCase):
         req = self.client().post('/binary-number-substraction', headers=headers, json={"numOne":"0011", "numTwo":"1110"})
         data = json.loads(req.data)
 
+        self.assertEqual(data['result'], "-1011")
         self.assertTrue(data['success'])
         self.assertEqual(data['status_code'], 200)
-        self.assertEqual(data['result'], "-1011")
+        
 
-    
     def tet_400_binary_number_substraction(self):
         headers = {
             'Content-Type': 'application/json'
@@ -219,6 +218,7 @@ class TestApp(unittest.TestCase):
         self.assertEqual(data['status_code'], 400)
         self.assertEqual(data['message'], "bad request")
         self.assertEqual(data['success'], False)
+
 
     
 if __name__ == "__main__":

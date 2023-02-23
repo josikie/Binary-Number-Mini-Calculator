@@ -1,5 +1,7 @@
 def processBinaryAddition(stringOne, stringTwo):
     # convert string binary to decimal
+    stringOne = check_zero(stringOne)
+    stringTwo = check_zero(stringTwo)
     decimalOne = convertBinaryToDecimal(stringOne)
     decimalTwo = convertBinaryToDecimal(stringTwo)
     # add the decimal binary
@@ -10,6 +12,8 @@ def processBinaryAddition(stringOne, stringTwo):
 
 def processBinarySubstraction(stringOne, stringTwo):
     # convert string binary to decimal
+    stringOne = check_zero(stringOne)
+    stringTwo = check_zero(stringTwo)
     decimalOne = convertBinaryToDecimal(stringOne)
     decimalTwo = convertBinaryToDecimal(stringTwo)
     # substract them
@@ -20,6 +24,8 @@ def processBinarySubstraction(stringOne, stringTwo):
 
 def processBinaryMultiplication(stringOne, stringTwo):
     # convert string binary to decimal
+    stringOne = check_zero(stringOne)
+    stringTwo = check_zero(stringTwo)
     decimalOne = convertBinaryToDecimal(stringOne)
     decimalTwo = convertBinaryToDecimal(stringTwo)
     # multiplicate them
@@ -76,6 +82,8 @@ def convertBinaryToDecimal(binaryNum):
 
 def convertDecimalToBinary(decimalNum):
     minus = False
+    if decimalNum < 0:
+        minus = True
     decimalNumber = int(decimalNum)
     if decimalNumber < 0:
         minus = True
@@ -110,7 +118,22 @@ def checkIfNotBinaryNumber(stringOne, stringTwo):
 
     return notBinaryNumber
 
+def check_zero(strings):
+    char_list = []
+    for i in strings:
+        char_list.append(i)
+    
+    for j in range(0, len(char_list)):
+        if char_list[0] == '0':
+            char_list.pop(0)
 
-# print("masukkan")
-# sOne = input()
-# print(convertDecimalToBinary(sOne))
+    newString = ""
+    for k in char_list:
+        newString += k
+    
+    return newString
+
+
+print("masukkan")
+sOne = "00010100"
+print(check_zero(sOne))

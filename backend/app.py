@@ -21,15 +21,16 @@ def create_app(test_config=None):
         binaryFromDb = binaryCalculator.query.filter_by(first_binary_number=binaryOne, second_binary_number=binaryTwo).one_or_none()
 
         if binaryFromDb != None:
-            abort(400)
+            return True;
 
     @app.route('/binary-number-addition', methods=['POST'])
     def binaryNumberAddition():
         binaryNumber = request.get_json()
         binaryOne = binaryNumber.get('numOne')
         binaryTwo = binaryNumber.get('numTwo')
-
-        checkNumbers(binaryOne, binaryTwo, BinaryAddition)
+        
+        if checkNumbers(binaryOne, binaryTwo, BinaryAddition):
+            abort(400)
 
         if len(binaryOne) > 255 or len(binaryTwo) > 255:
             abort(400)
@@ -55,23 +56,25 @@ def create_app(test_config=None):
         binaryOne = binaryNumber.get('numOne')
         binaryTwo = binaryNumber.get('numTwo')
 
-        checkNumbers(binaryOne, binaryTwo, BinarySubstraction)
+        if checkNumbers(binaryOne, binaryTwo, BinarySubstraction):
+            abort(400)
         
-        if len(binaryOne) > 255 or len(binaryTwo) > 255:
+        elif len(binaryOne) > 255 or len(binaryTwo) > 255:
             abort(400)
 
-        if checkIfNotBinaryNumber(binaryOne, binaryTwo):
+        elif checkIfNotBinaryNumber(binaryOne, binaryTwo):
             abort(400)
 
-        result = processBinarySubstraction(binaryOne, binaryTwo)
-        binarySubstraction = BinarySubstraction(binaryOne, binaryTwo, result)
-        binarySubstraction.insert()
+        else:
+            result = processBinarySubstraction(binaryOne, binaryTwo)
+            binarySubstraction = BinarySubstraction(binaryOne, binaryTwo, result)
+            binarySubstraction.insert()
 
-        return jsonify({
-            'status_code': 200,
-            'success': True,
-            'result': result
-        })
+            return jsonify({
+                'status_code': 200,
+                'success': True,
+                'result': result
+            })
 
 
     @app.route('/binary-number-multiplication', methods=['POST'])
@@ -80,7 +83,8 @@ def create_app(test_config=None):
         binaryOne = binaryNumber.get("numOne")
         binaryTwo = binaryNumber.get("numTwo")
 
-        checkNumbers(binaryOne, binaryTwo, BinaryMultiplication)
+        if checkNumbers(binaryOne, binaryTwo, BinaryMultiplication):
+            abort(400)
 
         if len(binaryOne) > 255 or len(binaryTwo) > 255:
             abort(400)
@@ -90,6 +94,7 @@ def create_app(test_config=None):
 
         result = processBinaryMultiplication(binaryOne, binaryTwo)
         binaryMultiplication = BinaryMultiplication(binaryOne, binaryTwo, result)
+        binaryMultiplication.insert()
 
         return jsonify({
             'status_code': 200,
