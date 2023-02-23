@@ -13,7 +13,9 @@ def processBinaryAddition(stringOne, stringTwo):
 def processBinarySubstraction(stringOne, stringTwo):
     # convert string binary to decimal
     stringOne = check_zero(stringOne)
+    print(stringOne)
     stringTwo = check_zero(stringTwo)
+    print(stringTwo)
     decimalOne = convertBinaryToDecimal(stringOne)
     decimalTwo = convertBinaryToDecimal(stringTwo)
     # substract them
@@ -134,6 +136,7 @@ def check_zero(strings):
     return newString
 
 
-print("masukkan")
-sOne = "00010100"
-print(check_zero(sOne))
+processBinarySubstraction("0011", "1101")
+# print("masukkan")
+# sOne = "00010100"
+# print(check_zero(sOne))
