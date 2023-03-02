@@ -156,7 +156,8 @@ class TestApp(unittest.TestCase):
 
         self.assertTrue(data['success'])
         self.assertEqual(data['status_code'], 200)
-        self.assertEqual(data['result'], {"the_result_of_division":"10", "remainder":"100"})
+        self.assertEqual(data['result'], "10")
+        self.assertEqual(data["remainder"], "100")
 
     
     def test_404_binary_number_division(self):
@@ -164,7 +165,7 @@ class TestApp(unittest.TestCase):
             'Content-Type': 'application/json'
         }
 
-        req = self.client().post('/binary-number-division', headers=headers, json={"numOne":"001100", "numTwo":"450111"})
+        req = self.client().post('/binary-number-division', headers=headers, json={"numOne":"00112", "numTwo":"00011"})
         data = json.loads(req.data)
 
         self.assertEqual(data['status_code'], 400)
@@ -183,7 +184,6 @@ class TestApp(unittest.TestCase):
         self.assertEqual(data['status_code'], 400)
         self.assertEqual(data['message'], "bad request")
         self.assertEqual(data['success'], False)
-
 
     
 if __name__ == "__main__":

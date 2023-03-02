@@ -28,7 +28,7 @@ def setTestDB(app, database_path=database_path):
     db.app = app
     with db.app.app_context():
         db.init_app(app)
-        #db.create_all()
+        db.create_all()
 
 
 class BinaryAddition(db.Model):
@@ -151,12 +151,14 @@ class BinaryDivision(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_binary_number = db.Column(db.String(255))
     second_binary_number = db.Column(db.String(255))
-    result = db.Column(db.String)
+    remainder = db.Column(db.String())
+    result = db.Column(db.String())
 
 
-    def __init__(self, first_binary_number, second_binary_number, result):
+    def __init__(self, first_binary_number, second_binary_number, remainder, result):
         self.first_binary_number = first_binary_number
         self.second_binary_number = second_binary_number
+        self.remainder = remainder
         self.result = result
     
 
@@ -179,5 +181,6 @@ class BinaryDivision(db.Model):
             'id': self.id,
             'first_number': self.first_binary_number,
             'second_number': self.second_binary_number,
+            'remainder': self.remainder,
             'result': self.result
         }

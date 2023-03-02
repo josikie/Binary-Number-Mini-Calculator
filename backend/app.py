@@ -25,7 +25,8 @@ def create_app(test_config=None):
             binaryFromDb = BinarySubstraction.query.filter(and_(BinarySubstraction.first_binary_number==binaryOne, BinarySubstraction.second_binary_number==binaryTwo)).all()
         elif calculator == "*":
             binaryFromDb = BinaryMultiplication.query.filter(and_(BinaryMultiplication.first_binary_number==binaryOne, BinaryMultiplication.second_binary_number==binaryTwo)).all()
-        
+        elif calculator == "/":
+            binaryFromDb = BinaryDivision.query.filter(and_(BinaryDivision.first_binary_number==binaryOne, BinaryDivision.second_binary_number==binaryTwo)).all()
         return binaryFromDb
 
     @app.route('/binary-number-addition', methods=['POST'])
@@ -111,6 +112,8 @@ def create_app(test_config=None):
         binaryOne = binaryNumber.get("numOne")
         binaryTwo = binaryNumber.get("numTwo")
 
+        findTheEqual = checkNumbers(binaryOne, binaryTwo, "/")
+
         if len(binaryOne) > 255 or len(binaryTwo) > 255:
             abort(400)
 
@@ -119,13 +122,15 @@ def create_app(test_config=None):
         
         result = processBinaryDivision(binaryOne, binaryTwo)
 
+        if len(findTheEqual) == 0:
+            binaryDivision = BinaryDivision(binaryOne, binaryTwo, result[1], result[0])
+            binaryDivision.insert()
+
         return jsonify({
             'status_code': 200,
             'success': True,
-            'result': {
-                'the_result_of_division': result[0],
-                'remainder': result[1]
-            }
+            'remainder': result[1],
+            'result': result[0]
         })
 
 
