@@ -3,7 +3,7 @@ from sqlalchemy import or_, and_
 from binarynumber import (
     processBinaryAddition, 
     checkIfNotBinaryNumber,
-    check_zero, 
+    convertBinaryToDecimal, 
     processBinarySubstraction, 
     processBinaryMultiplication, 
     processBinaryDivision)
@@ -144,7 +144,16 @@ def create_app(test_config=None):
         if len(binaryNumber) > 255:
             abort(400)
 
-        if checkIfNotBinaryNumber()
+        if checkIfNotBinaryNumber(binaryNumber):
+            abort(400)
+
+        result = convertBinaryToDecimal(binaryNumber)
+
+        return jsonify({
+            'status_code': 200,
+            'success': True,
+            'result': result
+        })
 
 
     @app.errorhandler(400)

@@ -108,10 +108,14 @@ def convertDecimalToBinary(decimalNum):
 
 def checkIfNotBinaryNumber(stringBinary):
     notBinaryNumber = False
-    for i in stringOne:
-        if i != '1':
-            if i != '0':
+    for i in range(0, len(stringBinary)):
+        if stringBinary[i] != '1':
+            if i == 0 and stringBinary[i] == '-':
+                notBinaryNumber = False
+            elif stringBinary[i] != '0':
                 notBinaryNumber = True
+            
+            
 
     # for j in stringTwo:
     #     if j != '1':

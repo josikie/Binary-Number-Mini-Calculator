@@ -19,7 +19,7 @@ def setDB(app, database_path=database_path):
     db.app = app
     with db.app.app_context():
         db.init_app(app)
-        migrate = Migrate(app, db)
+        #migrate = Migrate(app, db)
 
 
 def setTestDB(app, database_path=database_path):
