@@ -82,6 +82,7 @@ def convertBinaryToDecimal(binaryNum):
     return total
 
 
+# TOMORROW TASK: change the logic in convert decimal to binary function
 def convertDecimalToBinary(decimalNum):
     minus = False
     if decimalNum < 0:
