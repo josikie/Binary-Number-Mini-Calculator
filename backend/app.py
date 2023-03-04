@@ -16,6 +16,7 @@ def create_app(test_config=None):
     setDB(app)
     CORS(app)
 
+
     def checkNumbers(binaryOne, binaryTwo, calculator):
         ## task: use filter_by, to check if there are numbers equal to binaryOne and binaryTwo.
         ## If none, it is okay to save it to db, otherwise just calculate it.
@@ -29,6 +30,7 @@ def create_app(test_config=None):
             binaryFromDb = BinaryDivision.query.filter(and_(BinaryDivision.first_binary_number==binaryOne, BinaryDivision.second_binary_number==binaryTwo)).all()
         return binaryFromDb
 
+
     @app.route('/binary-number-addition', methods=['POST'])
     def binaryNumberAddition():
         binaryNumber = request.get_json()
@@ -40,7 +42,7 @@ def create_app(test_config=None):
         if len(binaryOne) > 255 or len(binaryTwo) > 255:
             abort(400)
         
-        if checkIfNotBinaryNumber(binaryOne, binaryTwo):
+        if checkIfNotBinaryNumber(binaryOne) and checkIfNotBinaryNumber(binaryTwo):
             abort(400)
         
         result = processBinaryAddition(binaryOne, binaryTwo)
@@ -54,6 +56,7 @@ def create_app(test_config=None):
             'result' : result
         })
 
+
     @app.route('/binary-number-substraction', methods=['POST'])
     def binarySubstractions():
         binaryNumber = request.get_json()
@@ -65,7 +68,7 @@ def create_app(test_config=None):
         if len(binaryOne) > 255 or len(binaryTwo) > 255:
             abort(400)
 
-        if checkIfNotBinaryNumber(binaryOne, binaryTwo):
+        if checkIfNotBinaryNumber(binaryOne) and checkIfNotBinaryNumber(binaryTwo):
             abort(400)
 
         result = processBinarySubstraction(binaryOne, binaryTwo)
@@ -90,7 +93,7 @@ def create_app(test_config=None):
         if len(binaryOne) > 255 or len(binaryTwo) > 255:
             abort(400)
 
-        if checkIfNotBinaryNumber(binaryOne, binaryTwo):
+        if checkIfNotBinaryNumber(binaryOne) and checkIfNotBinaryNumber(binaryTwo):
             abort(400)
 
         result = processBinaryMultiplication(binaryOne, binaryTwo)
@@ -117,7 +120,7 @@ def create_app(test_config=None):
         if len(binaryOne) > 255 or len(binaryTwo) > 255:
             abort(400)
 
-        if checkIfNotBinaryNumber(binaryOne, binaryTwo):
+        if checkIfNotBinaryNumber(binaryOne) and checkIfNotBinaryNumber(binaryTwo):
             abort(400)
         
         result = processBinaryDivision(binaryOne, binaryTwo)
@@ -132,6 +135,16 @@ def create_app(test_config=None):
             'remainder': result[1],
             'result': result[0]
         })
+
+
+    @app.route('/binary-to-decimal', methods=['GET'])
+    def binaryToDecimal():
+        binaryNumber = request.get_json()["binaryNum"]
+
+        if len(binaryNumber) > 255:
+            abort(400)
+
+        if checkIfNotBinaryNumber()
 
 
     @app.errorhandler(400)

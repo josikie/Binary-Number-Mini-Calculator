@@ -106,17 +106,17 @@ def convertDecimalToBinary(decimalNum):
     return stringArrBinary
 
 
-def checkIfNotBinaryNumber(stringOne, stringTwo):
+def checkIfNotBinaryNumber(stringBinary):
     notBinaryNumber = False
     for i in stringOne:
         if i != '1':
             if i != '0':
                 notBinaryNumber = True
 
-    for j in stringTwo:
-        if j != '1':
-            if j != '0':
-                notBinaryNumber = True
+    # for j in stringTwo:
+    #     if j != '1':
+    #         if j != '0':
+    #             notBinaryNumber = True
 
     return notBinaryNumber
 

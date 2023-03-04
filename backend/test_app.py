@@ -186,5 +186,19 @@ class TestApp(unittest.TestCase):
         self.assertEqual(data['success'], False)
 
     
+    # test for convert binary to decimal number
+    def test_binary_to_decimal_number(self):
+        headers = {
+            'Content-Type': 'application/json'
+        }
+
+        req = self.client().get('/binary-to-decimal', headers=headers, json={"binaryNum":"01110110"})
+        data = json.loads(req.data)
+
+        self.assertEqual(data['status_code'], 200)
+        self.assertTrue(data['success'])
+        self.assertEqual(data['result'], 118)
+
+    
 if __name__ == "__main__":
     unittest.main()
