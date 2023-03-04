@@ -211,6 +211,34 @@ class TestApp(unittest.TestCase):
         self.assertEqual(data['status_code'], 400)
         self.assertFalse(data['success'])
         self.assertEqual(data['message'], "bad request")
-    
+
+
+    def test_400_2_to_decimal_number(self):
+        headers = {
+            'Content-Type': 'application/json'
+        }
+
+        req = self.client().get('/binary-to-decimal', headers=headers, json={"binaryNum":"10101010100101010101001011010101010010101010100101101010101001010101010010110101010100101010101001011010101010010101010100101101010101001010101010010110101010100101010101001011010101010010101010100101101010101001010101010010110101010100101010101001011010101010010101010100101"})
+        data = json.loads(req.data)
+
+        self.assertEqual(data['status_code'], 400)
+        self.assertEqual(data['message'], "bad request")
+        self.assertEqual(data['success'], False)
+
+
+    # test for convert decimal to binary endpoint
+    def test_decimal_to_binary(self):
+        headers = {
+            'Content-Type': 'application/json'
+        }  
+
+        req = self.client().get('/decimal-to-binary', headers=headers, json={"decimalNum": 4095938384})
+        data = json.loads(req.data)
+
+        self.assertEqual(data['status_code'], 200)
+        self.assertTrue(data['success'])
+        self.assertEqual(data['result'], "11110100001000110000111101010000")
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -3,7 +3,8 @@ from sqlalchemy import or_, and_
 from binarynumber import (
     processBinaryAddition, 
     checkIfNotBinaryNumber,
-    convertBinaryToDecimal, 
+    convertBinaryToDecimal,
+    convertDecimalToBinary, 
     processBinarySubstraction, 
     processBinaryMultiplication, 
     processBinaryDivision)
@@ -148,6 +149,19 @@ def create_app(test_config=None):
             abort(400)
 
         result = convertBinaryToDecimal(binaryNumber)
+
+        return jsonify({
+            'status_code': 200,
+            'success': True,
+            'result': result
+        })
+
+
+    @app.route('/decimal-to-binary', methods=['GET'])
+    def decimalToBinary():
+        decimalNum = request.get_json()["decimalNum"]
+
+        result = convertDecimalToBinary(decimalNum)
 
         return jsonify({
             'status_code': 200,
