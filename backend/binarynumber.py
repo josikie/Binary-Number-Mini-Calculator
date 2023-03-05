@@ -111,9 +111,7 @@ def convertDecimalToBinary(decimalNum):
 
     if dataTypeFloat:
         numInFrontOfPoint = int(decimalNum)
-        print(numInFrontOfPoint)
         decimalNum = int(decimalNum * pow(2,8))
-        print(decimalNum)
         frontOfPoint = []
         behindOfPoint = []
 
@@ -153,9 +151,7 @@ def convertDecimalToBinary(decimalNum):
         frontReverse = []
         behindReverse = []
         [frontReverse.append(frontOfPoint[i]) for i in range(len(frontOfPoint)-1, -1, -1)]
-        print(frontReverse)
         [behindReverse.append(behindOfPoint[j]) for j in range(len(behindOfPoint)-1, -1, -1)]
-        print(behindReverse)
 
         for i in frontReverse:
             stringArrBinary = stringArrBinary + i
@@ -172,6 +168,47 @@ def convertDecimalToBinary(decimalNum):
             stringArrBinary = "-" + stringArrBinary
 
     return stringArrBinary
+
+# TOMORROW TASK: Added logic for binary without point on this logic
+def convertBToD(binary):
+    minus = False
+    isFloat = False
+    if binary[0] == "-":
+        minus = True
+    
+    binaryNumberBeforePoint = ""
+    binaryNumberAfterPoint = ""
+
+    for i in binary:
+        if i == '.':
+            isFloat = True
+
+    if isFloat:
+        splittedNumber = binary.split(".")
+        binaryNumberBeforePoint = splittedNumber[0]
+        print(binaryNumberBeforePoint)
+        binaryNumberAfterPoint = splittedNumber[1]
+        print(binaryNumberAfterPoint)
+
+    reverseBinaryNumberBeforePoint = []
+    [reverseBinaryNumberBeforePoint.append(binaryNumberBeforePoint[i]) for i in range(len(binaryNumberBeforePoint)-1, -1, -1)]
+    if reverseBinaryNumberBeforePoint[len(reverseBinaryNumberBeforePoint)-1] == '-':
+        reverseBinaryNumberBeforePoint.pop(len(reverseBinaryNumberBeforePoint)-1)
+
+    total = 0
+    for j in range(len(reverseBinaryNumberBeforePoint)-1, -1, -1):
+        print(reverseBinaryNumberBeforePoint[j])
+        k = float(reverseBinaryNumberBeforePoint[j]) * pow(2,j)
+        print(k)
+        total = total + k
+        print(total)
+    for l in range(0, len(binaryNumberAfterPoint)):
+        k = float(binaryNumberAfterPoint[l]) * pow(2,(-1 * (l + 1)))
+        total = total + k
+    
+    if minus:
+        total = -1 * total
+    return total
 
 
 def checkIfNotBinaryNumber(stringBinary):
@@ -202,13 +239,15 @@ def check_zero(strings):
     return newString
 
 
-
 # intToBinary = convertDecimalToBinary(350)
 # trueOrFalse = intToBinary == "101011110"
 # print(intToBinary)
 # print(trueOrFalse)
 
-# floatToBinary = convertDecimalToBinary(459.9)
-# trueOrFalse = floatToBinary == "111001011.11100110"
+# floatToBinary = convertDecimalToBinary(40959.38384)
+# trueOrFalse = floatToBinary == "1001111111111111.01100010"
 # print(floatToBinary)
 # print(trueOrFalse)
+
+binaryToDecimal = convertBToD("-1101.11011")
+print(binaryToDecimal)

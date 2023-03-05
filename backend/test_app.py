@@ -213,7 +213,7 @@ class TestApp(unittest.TestCase):
         self.assertEqual(data['message'], "bad request")
 
 
-    def test_400_2_to_decimal_number(self):
+    def test_400_binary_2_to_decimal_number(self):
         headers = {
             'Content-Type': 'application/json'
         }
@@ -227,7 +227,7 @@ class TestApp(unittest.TestCase):
 
 
     # test for convert decimal to binary endpoint
-    def test_decimal_to_binary(self):
+    def test_decimal_int_to_binary(self):
         headers = {
             'Content-Type': 'application/json'
         }  
@@ -238,6 +238,45 @@ class TestApp(unittest.TestCase):
         self.assertEqual(data['status_code'], 200)
         self.assertTrue(data['success'])
         self.assertEqual(data['result'], "11110100001000110000111101010000")
+
+    
+    def test_negatif_decimal_int_to_binary(self):
+        headers = {
+            'Content-Type': 'application/json'
+        }  
+
+        req = self.client().get('/decimal-to-binary', headers=headers, json={"decimalNum": -4095938384})
+        data = json.loads(req.data)
+
+        self.assertEqual(data['status_code'], 200)
+        self.assertTrue(data['success'])
+        self.assertEqual(data['result'], "-11110100001000110000111101010000")
+
+    
+    def test_decimal_float_to_binary(self):
+        headers = {
+            'Content-Type': 'application/json'
+        }  
+
+        req = self.client().get('/decimal-to-binary', headers=headers, json={"decimalNum": 40959.38384})
+        data = json.loads(req.data)
+
+        self.assertEqual(data['status_code'], 200)
+        self.assertTrue(data['success'])
+        self.assertEqual(data['result'], "1001111111111111.01100010")
+
+    
+    def test_negatif_decimal_float_to_binary(self):
+        headers = {
+            'Content-Type': 'application/json'
+        }  
+
+        req = self.client().get('/decimal-to-binary', headers=headers, json={"decimalNum": -40959.38384})
+        data = json.loads(req.data)
+
+        self.assertEqual(data['status_code'], 200)
+        self.assertTrue(data['success'])
+        self.assertEqual(data['result'], "-1001111111111111.01100010")
 
 
 if __name__ == "__main__":
