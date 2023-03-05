@@ -82,28 +82,95 @@ def convertBinaryToDecimal(binaryNum):
     return total
 
 
-# TOMORROW TASK: change the logic in convert decimal to binary function
 def convertDecimalToBinary(decimalNum):
+    dataTypeFloat = isinstance(decimalNum, float)
+    dataTypeInt = isinstance(decimalNum, int)
+    stringArrBinary = ""
     minus = False
+
     if decimalNum < 0:
         minus = True
-    decimalNumber = int(decimalNum)
-    if decimalNumber < 0:
-        minus = True
-    arrBinary = []
-    while decimalNumber != 0:
-        arrBinary.insert(0,decimalNumber % 2)
-        decimalNumber = int(decimalNumber / 2)
-    
-    stringArrBinary = ""
-    for i in arrBinary:
-        stringArrBinary += str(i)
-    
-    if stringArrBinary == "":
-        stringArrBinary += "0"
 
-    if minus:
-        stringArrBinary = "-" + stringArrBinary
+    if dataTypeInt:
+        decimalNumber = int(decimalNum)
+        if decimalNumber < 0:
+            minus = True
+        arrBinary = []
+        while decimalNumber != 0:
+            arrBinary.insert(0,decimalNumber % 2)
+            decimalNumber = int(decimalNumber / 2)
+        
+        for i in arrBinary:
+            stringArrBinary += str(i)
+        
+        if stringArrBinary == "":
+            stringArrBinary += "0"
+
+        if minus:
+            stringArrBinary = "-" + stringArrBinary
+
+    if dataTypeFloat:
+        numInFrontOfPoint = int(decimalNum)
+        print(numInFrontOfPoint)
+        decimalNum = int(decimalNum * pow(2,8))
+        print(decimalNum)
+        frontOfPoint = []
+        behindOfPoint = []
+
+        if minus:
+            while decimalNum < numInFrontOfPoint:
+                remainder = decimalNum % 2
+                if remainder == 0:
+                    behindOfPoint.append('0')
+                elif remainder == 1:
+                    behindOfPoint.append('1')
+                decimalNum = int(decimalNum/2)
+
+            while decimalNum < 0:
+                remainder = decimalNum % 2
+                if remainder == 0:
+                    frontOfPoint.append('0')
+                elif remainder == 1:
+                    frontOfPoint.append('1')
+                decimalNum = int(decimalNum/2)
+        else:
+            while decimalNum > numInFrontOfPoint:
+                remainder = decimalNum % 2
+                if remainder == 0:
+                    behindOfPoint.append('0')
+                elif remainder == 1:
+                    behindOfPoint.append('1')
+                decimalNum = int(decimalNum/2)
+
+            while decimalNum > 0:
+                remainder = decimalNum % 2
+                if remainder == 0:
+                    frontOfPoint.append('0')
+                elif remainder == 1:
+                    frontOfPoint.append('1')
+                decimalNum = int(decimalNum/2)
+
+        frontReverse = []
+        behindReverse = []
+        [frontReverse.append(frontOfPoint[i]) for i in range(len(frontOfPoint)-1, -1, -1)]
+        print(frontReverse)
+        [behindReverse.append(behindOfPoint[j]) for j in range(len(behindOfPoint)-1, -1, -1)]
+        print(behindReverse)
+
+        for i in frontReverse:
+            stringArrBinary = stringArrBinary + i
+        
+        stringArrBinary = stringArrBinary + "."
+
+        for j in behindReverse:
+            stringArrBinary = stringArrBinary + j
+
+        if stringArrBinary == "":
+            stringArrBinary += "0"
+
+        if minus:
+            stringArrBinary = "-" + stringArrBinary
+
     return stringArrBinary
 
 
@@ -115,15 +182,9 @@ def checkIfNotBinaryNumber(stringBinary):
                 notBinaryNumber = False
             elif stringBinary[i] != '0':
                 notBinaryNumber = True
-            
-            
-
-    # for j in stringTwo:
-    #     if j != '1':
-    #         if j != '0':
-    #             notBinaryNumber = True
 
     return notBinaryNumber
+
 
 def check_zero(strings):
     char_list = []
@@ -141,7 +202,13 @@ def check_zero(strings):
     return newString
 
 
-processBinarySubstraction("0011", "1101")
-# print("masukkan")
-# sOne = "00010100"
-# print(check_zero(sOne))
+
+# intToBinary = convertDecimalToBinary(350)
+# trueOrFalse = intToBinary == "101011110"
+# print(intToBinary)
+# print(trueOrFalse)
+
+# floatToBinary = convertDecimalToBinary(459.9)
+# trueOrFalse = floatToBinary == "111001011.11100110"
+# print(floatToBinary)
+# print(trueOrFalse)
