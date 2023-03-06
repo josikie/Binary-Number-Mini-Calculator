@@ -43,7 +43,7 @@ def create_app(test_config=None):
         if len(binaryOne) > 255 or len(binaryTwo) > 255:
             abort(400)
         
-        if checkIfNotBinaryNumber(binaryOne) and checkIfNotBinaryNumber(binaryTwo):
+        if checkIfNotBinaryNumber(binaryOne) or checkIfNotBinaryNumber(binaryTwo):
             abort(400)
         
         result = processBinaryAddition(binaryOne, binaryTwo)
@@ -69,7 +69,7 @@ def create_app(test_config=None):
         if len(binaryOne) > 255 or len(binaryTwo) > 255:
             abort(400)
 
-        if checkIfNotBinaryNumber(binaryOne) and checkIfNotBinaryNumber(binaryTwo):
+        if checkIfNotBinaryNumber(binaryOne) or checkIfNotBinaryNumber(binaryTwo):
             abort(400)
 
         result = processBinarySubstraction(binaryOne, binaryTwo)
@@ -83,6 +83,7 @@ def create_app(test_config=None):
             'status_code': 200
         })
 
+
     @app.route('/binary-number-multiplication', methods=['POST'])
     def binaryNumberMultiplication():
         binaryNumber = request.get_json()
@@ -94,7 +95,7 @@ def create_app(test_config=None):
         if len(binaryOne) > 255 or len(binaryTwo) > 255:
             abort(400)
 
-        if checkIfNotBinaryNumber(binaryOne) and checkIfNotBinaryNumber(binaryTwo):
+        if checkIfNotBinaryNumber(binaryOne) or checkIfNotBinaryNumber(binaryTwo):
             abort(400)
 
         result = processBinaryMultiplication(binaryOne, binaryTwo)
@@ -121,7 +122,7 @@ def create_app(test_config=None):
         if len(binaryOne) > 255 or len(binaryTwo) > 255:
             abort(400)
 
-        if checkIfNotBinaryNumber(binaryOne) and checkIfNotBinaryNumber(binaryTwo):
+        if checkIfNotBinaryNumber(binaryOne) or checkIfNotBinaryNumber(binaryTwo):
             abort(400)
         
         result = processBinaryDivision(binaryOne, binaryTwo)
@@ -178,9 +179,12 @@ def create_app(test_config=None):
             'success': False
         })
 
+
     return app
 
+
 app = create_app()
+
 
 if __name__=="__main__":
     app.run()
